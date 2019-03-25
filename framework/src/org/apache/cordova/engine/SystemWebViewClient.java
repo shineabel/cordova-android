@@ -232,7 +232,8 @@ public class SystemWebViewClient extends WebViewClient {
             appInfo = pm.getApplicationInfo(packageName, PackageManager.GET_META_DATA);
             if ((appInfo.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0) {
                 // debug = true
-                handler.proceed();
+                //handler.proceed();
+                handler.cancel();
                 return;
             } else {
                 // debug = false
