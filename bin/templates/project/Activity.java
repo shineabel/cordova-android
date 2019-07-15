@@ -21,9 +21,24 @@ package __ID__;
 
 import android.os.Bundle;
 import org.apache.cordova.*;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.commonsdk.UMConfigure;
+import com.umeng.plugin.PGCommonSDK;
 
 public class __ACTIVITY__ extends CordovaActivity
 {
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -37,5 +52,9 @@ public class __ACTIVITY__ extends CordovaActivity
 
         // Set by <content src="index.html" /> in config.xml
         loadUrl(launchUrl);
+        PGCommonSDK.setLogEnabled(true);
+        PGCommonSDK.init(this,"5d2a8c053fc1958457001139","testbyshine",UMConfigure.DEVICE_TYPE_PHONE,"");
+        MobclickAgent.setSessionContinueMillis(1000);
+        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_DUM_NORMAL);
     }
 }
